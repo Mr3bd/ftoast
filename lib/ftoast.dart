@@ -54,7 +54,7 @@ class FToast {
     final double subMsgSpace = 12.0,
     final double corner = 6.0,
     final Color color = Colors.black54,
-    final Alignment alignment = Alignment.center,
+    final MainAxisAlignment alignment = MainAxisAlignment.center,
     final int duration = 1800,
     final EdgeInsets padding =
         const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
@@ -146,21 +146,22 @@ class FToast {
     OverlayEntry entry = OverlayEntry(builder: (context) {
       print('losel');
 
-      return Stack(children: [
-        Align(
-            alignment: alignment,
-            child: IgnorePointer(
-              child: Material(
-                color: Colors.transparent,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    toast ?? buildToast(),
-                  ],
-                ),
+      return Column(
+        mainAxisAlignment: alignment,
+        children: [
+          IgnorePointer(
+            child: Material(
+              color: Colors.transparent,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  toast ?? buildToast(),
+                ],
               ),
-            ))
-      ]);
+            ),
+          )
+        ],
+      );
     });
     _ToastData toastData = _ToastData()
       ..context = context
