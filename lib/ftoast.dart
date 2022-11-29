@@ -54,6 +54,7 @@ class FToast {
     final double subMsgSpace = 12.0,
     final double corner = 6.0,
     final Color color = Colors.black54,
+    final Alignment alignment = Alignment.center,
     final int duration = 1800,
     final EdgeInsets padding =
         const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0, bottom: 16.0),
@@ -122,20 +123,23 @@ class FToast {
         children.add(SizedBox(height: imageSpace));
         children.add(image);
       }
-      return ConstrainedBox(
-        constraints: BoxConstraints(
-            minWidth: 80.0,
-            minHeight: 38.0,
-            maxWidth: MediaQueryData.fromWindow(window).size.width - 48.0),
-        child: Container(
-          padding: padding,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.all(Radius.circular(corner)),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: children,
+      return Align(
+        alignment: alignment,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+              minWidth: 80.0,
+              minHeight: 38.0,
+              maxWidth: MediaQueryData.fromWindow(window).size.width - 48.0),
+          child: Container(
+            padding: padding,
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.all(Radius.circular(corner)),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: children,
+            ),
           ),
         ),
       );
