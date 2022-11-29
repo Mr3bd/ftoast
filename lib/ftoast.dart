@@ -61,6 +61,8 @@ class FToast {
     final Widget? image,
     final AxisDirection imageDirection = AxisDirection.up,
     final double imageSpace = 9.0,
+    final double spaceUp = 0.0,
+    final double spaceDown = 0.0,
   }) {
     Widget buildToast() {
       TextStyle defaultStyle = TextStyle(
@@ -144,11 +146,12 @@ class FToast {
 
     if (_entryQueue == null) _entryQueue = Queue();
     OverlayEntry entry = OverlayEntry(builder: (context) {
-      print('losel');
-
       return Column(
         mainAxisAlignment: alignment,
         children: [
+          SizedBox(
+            height: spaceUp,
+          ),
           IgnorePointer(
             child: Material(
               color: Colors.transparent,
@@ -159,6 +162,9 @@ class FToast {
                 ],
               ),
             ),
+          ),
+          SizedBox(
+            height: spaceDown,
           )
         ],
       );
