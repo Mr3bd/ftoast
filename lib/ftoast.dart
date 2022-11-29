@@ -123,23 +123,20 @@ class FToast {
         children.add(SizedBox(height: imageSpace));
         children.add(image);
       }
-      return Align(
-        alignment: alignment,
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-              minWidth: 80.0,
-              minHeight: 38.0,
-              maxWidth: MediaQueryData.fromWindow(window).size.width - 48.0),
-          child: Container(
-            padding: padding,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.all(Radius.circular(corner)),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: children,
-            ),
+      return ConstrainedBox(
+        constraints: BoxConstraints(
+            minWidth: 80.0,
+            minHeight: 38.0,
+            maxWidth: MediaQueryData.fromWindow(window).size.width - 48.0),
+        child: Container(
+          padding: padding,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.all(Radius.circular(corner)),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: children,
           ),
         ),
       );
@@ -147,17 +144,23 @@ class FToast {
 
     if (_entryQueue == null) _entryQueue = Queue();
     OverlayEntry entry = OverlayEntry(builder: (context) {
-      return IgnorePointer(
-        child: Material(
-          color: Colors.transparent,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              toast ?? buildToast(),
-            ],
-          ),
-        ),
-      );
+      print('losel');
+
+      return Stack(children: [
+        Align(
+            alignment: alignment,
+            child: IgnorePointer(
+              child: Material(
+                color: Colors.transparent,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    toast ?? buildToast(),
+                  ],
+                ),
+              ),
+            ))
+      ]);
     });
     _ToastData toastData = _ToastData()
       ..context = context
